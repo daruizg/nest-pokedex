@@ -60,6 +60,7 @@ module.exports = {
         selector: 'property',
         modifiers: ['public'],
         format: ['camelCase'],
+        leadingUnderscore: 'allow',
       },
       // Variable naming (camelCase)
       {

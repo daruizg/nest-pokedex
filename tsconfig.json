@@ -6,7 +6,13 @@
       ],
       "@pokemon/*": [
         "src/pokemon/*"
-      ]
+      ],
+      "@common": [
+        "src/common"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
     },
     "module": "commonjs",
     "declaration": true,

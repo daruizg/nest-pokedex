@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 
 import { CreatePokemonDto, UpdatePokemonDto } from './dto';
+import { ParseMongoIdPipe } from '@common/pipes';
 import { Pokemon } from './entities';
 import { PokemonService } from './pokemon.service';
 
@@ -15,7 +16,7 @@ export class PokemonController {
   }
 
   @Get()
-  public findAll(): Pokemon[] {
+  public findAll(): Promise<Pokemon[]> {
     return this.pokemonService.findAll();
   }
 
@@ -30,7 +31,7 @@ export class PokemonController {
   }
 
   @Delete(':id')
-  public remove(@Param('id') id: string): Promise<void> {
+  public remove(@Param('id', ParseMongoIdPipe) id: string): Promise<void> {
     return this.pokemonService.remove(id);
   }
 }

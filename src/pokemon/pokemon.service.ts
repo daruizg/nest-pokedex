@@ -21,8 +21,8 @@ export class PokemonService {
     }
   }
 
-  public findAll(): Pokemon[] {
-    return [];
+  public async findAll(): Promise<Pokemon[]> {
+    return await this._pokemonModel.find();
   }
 
   public async findOne(term: string): Promise<Pokemon> {
@@ -58,8 +58,16 @@ export class PokemonService {
   }
 
   public async remove(id: string): Promise<void> {
-    const pokemon = await this.findOne(id);
-    await pokemon.deleteOne();
+    // Form 1
+    // const pokemon = await this.findOne(id);
+    // await pokemon.deleteOne();
+
+    // Form 2
+    // await this._pokemonModel.findByIdAndDelete(id);
+
+    // Form 3
+    const { deletedCount } = await this._pokemonModel.deleteMany({ _id: id });
+    if (deletedCount === 0) throw new NotFoundException(`Pokemon with id '${id}' not found`);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
