@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+
+import { CreatePokemonDto, UpdatePokemonDto } from './dto';
+import { Pokemon } from './entities';
 import { PokemonService } from './pokemon.service';
-import { CreatePokemonDto } from './dto/create-pokemon.dto';
-import { UpdatePokemonDto } from './dto/update-pokemon.dto';
-import { Pokemon } from './entities/pokemon.entity';
 
 @Controller('pokemon')
 export class PokemonController {

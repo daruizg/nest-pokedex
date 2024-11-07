@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@pokemon": [
+        "src/pokemon"
+      ],
+      "@pokemon/*": [
+        "src/pokemon/*"
+      ]
+    },
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,

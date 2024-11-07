@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePokemonDto } from './dto/create-pokemon.dto';
-import { UpdatePokemonDto } from './dto/update-pokemon.dto';
-import { Pokemon } from './entities/pokemon.entity';
+
+import { CreatePokemonDto, UpdatePokemonDto } from './dto';
+import { Pokemon } from './entities';
 
 @Injectable()
 export class PokemonService {

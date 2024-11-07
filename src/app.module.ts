@@ -1,7 +1,9 @@
 import { join } from 'path';
+
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { PokemonModule } from './pokemon/pokemon.module';
+
+import { PokemonModule } from '@pokemon';
 
 @Module({
   imports: [
