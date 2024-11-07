@@ -9,7 +9,7 @@ export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Post()
-  public create(@Body() createPokemonDto: CreatePokemonDto): Pokemon {
+  public create(@Body() createPokemonDto: CreatePokemonDto): Promise<Pokemon> {
     return this.pokemonService.create(createPokemonDto);
   }
 
