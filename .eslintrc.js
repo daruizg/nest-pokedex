@@ -6,10 +6,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   root: true,
   env: {
     node: true,
@@ -17,51 +14,99 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-
-    // Require explicit return types on functions and methods to ensure clarity
+    // Type Safety & Explicit Typing (C#-like)
     '@typescript-eslint/explicit-function-return-type': 'error',
-
-    // Require explicit return types on exported functions and module boundaries for maintainability
     '@typescript-eslint/explicit-module-boundary-types': 'error',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-inferrable-types': 'warn',
 
-    // Disallow the use of `any` type to encourage type-safe code
-    '@typescript-eslint/no-explicit-any': 'error',
-
-    // Require explicit accessibility modifiers on all class members
+    // Access Modifiers (C#-like)
     '@typescript-eslint/explicit-member-accessibility': [
       'error',
       {
         accessibility: 'explicit',
         overrides: {
-          constructors: 'no-public', // Constructor access defaults to public, so no need to specify
+          constructors: 'no-public',
+          accessors: 'no-public',
+          methods: 'explicit',
+          properties: 'explicit',
+          parameterProperties: 'explicit',
         },
       },
     ],
 
-    // Additional recommended best practices:
-    // Enforce consistent spacing in template strings to avoid accidental whitespace
-    'template-curly-spacing': ['error', 'never'],
-
-    // Enforce single quotes to ensure consistency and readability
-    quotes: ['error', 'single', { avoidEscape: true }],
-
-    // Disallow unused variables to keep the code clean
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-
-    // Enforce naming conventions, including prefixes for interfaces if desired
+    // Naming Conventions (C#-like)
     '@typescript-eslint/naming-convention': [
       'error',
+      // Interface prefixing (I prefix like C#)
       {
         selector: 'interface',
         format: ['PascalCase'],
-        prefix: ['I'], // Add this if you want interfaces to start with "I"
+        prefix: ['I'],
+      },
+      // Class naming (PascalCase like C#)
+      {
+        selector: 'class',
+        format: ['PascalCase'],
+      },
+      // Property naming (cammelCase for public, _camelCase for private like C#)
+      {
+        selector: 'property',
+        modifiers: ['private'],
+        format: ['camelCase'],
+        leadingUnderscore: 'require',
       },
       {
-        selector: 'variableLike',
-        format: ['camelCase', 'PascalCase'],
+        selector: 'property',
+        modifiers: ['public'],
+        format: ['camelCase'],
+      },
+      // Variable naming (camelCase)
+      {
+        selector: 'variable',
+        format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
         leadingUnderscore: 'allow',
       },
+      // Parameter naming (camelCase)
+      {
+        selector: 'parameter',
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+      },
+      // Enum naming (PascalCase like C#)
+      {
+        selector: 'enum',
+        format: ['PascalCase'],
+      },
+      // Enum member naming (PascalCase like C#)
+      {
+        selector: 'enumMember',
+        format: ['PascalCase'],
+      },
     ],
+
+    // Code Style
+    '@typescript-eslint/member-ordering': [
+      'error',
+      {
+        default: [
+          // Fields
+          'private-static-field',
+          'public-static-field',
+          'private-instance-field',
+          'public-instance-field',
+          // Constructors
+          'constructor',
+          // Methods
+          'private-static-method',
+          'public-static-method',
+          'private-instance-method',
+          'public-instance-method',
+        ],
+      },
+    ],
+    quotes: ['error', 'single', { avoidEscape: true }],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'template-curly-spacing': ['error', 'never'],
   },
 };
