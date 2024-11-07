@@ -40,7 +40,6 @@ module.exports = {
     ],
 
     // Additional recommended best practices:
-
     // Enforce consistent spacing in template strings to avoid accidental whitespace
     'template-curly-spacing': ['error', 'never'],
 
@@ -50,9 +49,14 @@ module.exports = {
     // Disallow unused variables to keep the code clean
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
-    // Enforce camelCase naming convention for readability
+    // Enforce naming conventions, including prefixes for interfaces if desired
     '@typescript-eslint/naming-convention': [
       'error',
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+        prefix: ['I'], // Add this if you want interfaces to start with "I"
+      },
       {
         selector: 'variableLike',
         format: ['camelCase', 'PascalCase'],
