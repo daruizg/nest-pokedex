@@ -98,10 +98,10 @@ module.exports = {
           // Constructors
           'constructor',
           // Methods
-          'private-static-method',
           'public-static-method',
-          'private-instance-method',
+          'private-static-method',
           'public-instance-method',
+          'private-instance-method',
         ],
       },
     ],

@@ -17,11 +17,7 @@ export class PokemonService {
       const pokemon = await this._pokemonModel.create(createPokemonDto);
       return pokemon;
     } catch (error) {
-      if (error.code === 11000)
-        throw new BadRequestException(`Pokemon already exists in database: ${JSON.stringify(error.keyValue)}`);
-
-      console.log(error);
-      throw new InternalServerErrorException('An error occurred while creating the Pokemon');
+      this.handleException(error);
     }
   }
 
@@ -48,9 +44,30 @@ export class PokemonService {
     throw new NotFoundException(`Pokemon with term '${term}' not found`);
   }
 
-  public update(id: number, updatePokemonDto: UpdatePokemonDto): Pokemon {
-    return null;
+  public async update(term: string, updatePokemonDto: UpdatePokemonDto): Promise<Pokemon> {
+    const pokemon = await this.findOne(term);
+
+    if (updatePokemonDto.name) updatePokemonDto.name = updatePokemonDto.name.toLowerCase();
+
+    try {
+      Object.assign(pokemon, updatePokemonDto);
+      return await pokemon.save();
+    } catch (error) {
+      this.handleException(error);
+    }
   }
 
-  public remove(id: number): void {}
+  public async remove(id: string): Promise<void> {
+    const pokemon = await this.findOne(id);
+    await pokemon.deleteOne();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private handleException(error: any): void {
+    if (error.code === 11000)
+      throw new BadRequestException(`Pokemon already exists in database: ${JSON.stringify(error.keyValue)}`);
+
+    console.log(error);
+    throw new InternalServerErrorException('An error occurred while processing the request');
+  }
 }
