@@ -6,7 +6,7 @@ import { Pokemon } from './entities';
 @Injectable()
 export class PokemonService {
   public create(createPokemonDto: CreatePokemonDto): Pokemon {
-    return 'This action adds a new pokemon';
+    return null;
   }
 
   public findAll(): Pokemon[] {
@@ -14,11 +14,11 @@ export class PokemonService {
   }
 
   public findOne(id: number): Pokemon {
-    return `This action returns a #${id} pokemon`;
+    return null;
   }
 
   public update(id: number, updatePokemonDto: UpdatePokemonDto): Pokemon {
-    return `This action updates a #${id} pokemon`;
+    return null;
   }
 
   public remove(id: number): void {}
