@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   root: true,
   env: {
@@ -14,13 +14,13 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    // Type Safety & Explicit Typing (C#-like)
-    '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'error',
+    // Type Safety & Explicit Typing
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/explicit-module-boundary-types': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-inferrable-types': 'warn',
 
-    // Access Modifiers (C#-like)
+    // Code Consistency & Readability
     '@typescript-eslint/explicit-member-accessibility': [
       'error',
       {
@@ -35,21 +35,38 @@ module.exports = {
       },
     ],
 
-    // Naming Conventions (C#-like)
+    '@typescript-eslint/member-ordering': [
+      'error',
+      {
+        default: [
+          'private-static-field',
+          'public-static-field',
+          'private-instance-field',
+          'public-instance-field',
+          'constructor',
+          'public-static-method',
+          'private-static-method',
+          'public-instance-method',
+          'private-instance-method',
+        ],
+      },
+    ],
+
+    // Naming Conventions
     '@typescript-eslint/naming-convention': [
       'error',
-      // Interface prefixing (I prefix like C#)
       {
         selector: 'interface',
         format: ['PascalCase'],
-        prefix: ['I'],
+        custom: {
+          regex: '^I[A-Z]',
+          match: false,
+        },
       },
-      // Class naming (PascalCase like C#)
       {
         selector: 'class',
         format: ['PascalCase'],
       },
-      // Property naming (cammelCase for public, _camelCase for private like C#)
       {
         selector: 'property',
         modifiers: ['private'],
@@ -62,52 +79,30 @@ module.exports = {
         format: ['camelCase'],
         leadingUnderscore: 'allow',
       },
-      // Variable naming (camelCase)
       {
         selector: 'variable',
         format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
         leadingUnderscore: 'allow',
       },
-      // Parameter naming (camelCase)
       {
         selector: 'parameter',
         format: ['camelCase'],
         leadingUnderscore: 'allow',
       },
-      // Enum naming (PascalCase like C#)
       {
         selector: 'enum',
         format: ['PascalCase'],
       },
-      // Enum member naming (PascalCase like C#)
       {
         selector: 'enumMember',
         format: ['PascalCase'],
       },
     ],
 
-    // Code Style
-    '@typescript-eslint/member-ordering': [
-      'error',
-      {
-        default: [
-          // Fields
-          'private-static-field',
-          'public-static-field',
-          'private-instance-field',
-          'public-instance-field',
-          // Constructors
-          'constructor',
-          // Methods
-          'public-static-method',
-          'private-static-method',
-          'public-instance-method',
-          'private-instance-method',
-        ],
-      },
-    ],
+    // Code Style & Formatting
     quotes: ['error', 'single', { avoidEscape: true }],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'template-curly-spacing': ['error', 'never'],
+    'prettier/prettier': 'error',
   },
 };
