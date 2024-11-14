@@ -9,11 +9,13 @@ import { CommonModule } from './common/common.module';
 import { EnvConfiguration } from '@common/config/app.config';
 import { PokemonModule } from '@pokemon';
 import { SeedModule } from './seed/seed.module';
+import { JoiValidationSchema } from '@common/config/joi.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [EnvConfiguration],
+      validationSchema: JoiValidationSchema,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
